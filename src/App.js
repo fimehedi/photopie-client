@@ -1,25 +1,46 @@
-import logo from './logo.svg';
+import AddRouter from './routers/AddRouter';
 import './App.css';
+import { createContext, useEffect, useState } from 'react';
+import { checkAuthenticate } from './components/authentication/AuthManager';
+
+export const userContext = createContext();
+export const adminContext = createContext();
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+
+    const [loggedInUser, setLoggedInUser] = useState({});
+    const [isAdmin, setIsAdmin] = useState();
+    const [loading, setLoading] = useState(!loggedInUser.isAuthenticated);
+
+    useEffect(() => {
+        if (!loggedInUser.isAuthenticated) {
+            checkAuthenticate(setLoggedInUser, setLoading);
+        }
+    }, [loggedInUser.isAuthenticated]);
+
+    useEffect(() => {
+        setLoading(true);
+        fetch('https://photo-pie.herokuapp.com/check-admin/?email=' + loggedInUser.email)
+            .then(res => res.json())
+            .then(data => {
+                setIsAdmin(data.isAdmin);
+                setLoading(false);
+            });
+    }, [loggedInUser.email]);
+
+
+    if (loading) {
+        return <p>Loading...</p>;
+    }
+
+    return (
+        <adminContext.Provider value={{ isAdmin, setIsAdmin }}>
+            <userContext.Provider value={{ loggedInUser, setLoggedInUser }}>
+                <AddRouter />
+            </userContext.Provider>
+        </adminContext.Provider>
+
+    );
 }
 
 export default App;
