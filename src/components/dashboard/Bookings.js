@@ -25,7 +25,7 @@ const Bookings = () => {
                     <div className="w-full overflow-x-auto">
                         <table className="w-full">
                             <thead>
-                                <tr className="text-md font-semibold tracking-wide text-left text-gray-900 bg-gray-100 uppercase border-b border-gray-600">
+                                <tr className="text-md text-left text-gray-900 bg-gray-100 uppercase border-b border-gray-600">
                                     <th className="px-4 py-3">Service Name</th>
                                     <th className="px-4 py-3">Service Cost</th>
                                     <th className="px-4 py-3">Customer Email</th>
@@ -39,6 +39,9 @@ const Bookings = () => {
                                 }
                             </tbody>
                         </table>
+                        {
+                            !bookings.length && <p className="p-4 text-center text-gray-400">{loading ? 'Loading...' : 'No data found!'}</p>
+                        }
                     </div>
                 </div>
             </div>

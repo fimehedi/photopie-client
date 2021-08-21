@@ -33,7 +33,7 @@ const Services = ({ seeMore }) => {
                 services.map(service => <Service key={service._id} service={service} />)
             }
             {
-                !services.length && <p className="text-center pt-20 text-gray-400">No data found</p>
+                !services.length && <p className="text-center pt-20 text-gray-400">{loading ? 'Loading...' : 'No data found'}</p>
             }
 
         </GridSection>

@@ -1,5 +1,4 @@
 import React from 'react';
-import Blogs from '../components/home/Blogs';
 import Banner from '../components/home/Banner';
 import Photographer from '../components/home/Photographer';
 import Services from '../components/shared/Services';
@@ -13,7 +12,6 @@ const Home = () => {
             <Banner />
             <Services seeMore={true} />
             <Photographer />
-            <Blogs />
             <Footer />
         </main>
     );

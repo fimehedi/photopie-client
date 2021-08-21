@@ -16,11 +16,11 @@ const PrivateRoute = ({ isOnlyAdmin, children, ...rest }) => {
                     <Route
                         {...rest}
                         render={({ location }) =>
-                            isAdmin
-                                ?
-                                children
-                                :
-                                <NotFoundPage code={403} msg="Unauthorize Access!" />
+                            <>
+                                {isAdmin === true && children}
+                                {isAdmin === null && 'Authenticating...'}
+                                {isAdmin === false && <NotFoundPage code={403} msg="Unauthenticated access" />}
+                            </>
 
                         }
                     />
