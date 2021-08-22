@@ -4,7 +4,7 @@ import Service from './Service';
 
 const Services = ({ seeMore }) => {
 
-    const [loading, setLoading] = useState(true);
+    const [loading, setLoading] = useState(false);
     const [services, setServices] = useState([]);
     useEffect(() => {
         fetch('https://photo-pie.herokuapp.com/services')
@@ -18,7 +18,7 @@ const Services = ({ seeMore }) => {
                 }
                 setLoading(false);
             });
-    }, []);
+    }, [seeMore]);
 
 
     return (
@@ -27,7 +27,7 @@ const Services = ({ seeMore }) => {
             subTitle="What can we do for you?"
             summary="Nulla mattis aliquet lorem in fringilla. Proin mollis lorem ligula, id feugiat diam."
             link="/services"
-            seeMore={services.length > 0}
+            seeMore={services.length > 0 && seeMore}
         >
             {
                 services.map(service => <Service key={service._id} service={service} />)
