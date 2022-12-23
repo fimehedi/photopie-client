@@ -7,7 +7,7 @@ const Services = ({ seeMore }) => {
     const [loading, setLoading] = useState(false);
     const [services, setServices] = useState([]);
     useEffect(() => {
-        fetch('https://photo-pie.herokuapp.com/services')
+        fetch(process.env.REACT_APP_API_ROOT + 'services')
             .then(res => res.json())
             .then(data => {
                 if (seeMore) {

@@ -8,7 +8,7 @@ const AuthForm = ({ isSignup }) => {
     const { setLoggedInUser } = useContext(userContext);
     const [userInput, setUserInput] = useState({});
     const [status, setStatus] = useState({});
-    const [process, setProcess] = useState(false);
+    const [loading, setLoading] = useState(false);
     const history = useHistory();
     const location = useLocation();
     const { from } = location.state || { from: { pathname: '/' } };
@@ -65,7 +65,7 @@ const AuthForm = ({ isSignup }) => {
         }
 
         else if (isSignup && name && email && password && confirmPassword) {
-            setProcess(true);
+            setLoading(true);
             createUserWithEmailPass(name, email, password)
                 .then(res => {
                     if (res.errorMsg) {
@@ -78,7 +78,7 @@ const AuthForm = ({ isSignup }) => {
                         history.push('/login');
 
                     }
-                    setProcess(false);
+                    setLoading(false);
                 })
                 .catch(err => {
                     setStatus({ isError: true, errorMsg: 'Something went wrong!' });
@@ -87,7 +87,7 @@ const AuthForm = ({ isSignup }) => {
         }
 
         else if (!isSignup && email && password) {
-            setProcess(true);
+            setLoading(true);
             signInWithEmailPass(email, password)
                 .then(res => {
                     if (res.errorMsg) {
@@ -98,7 +98,7 @@ const AuthForm = ({ isSignup }) => {
                         history.replace(from);
                         e.target.reset();
                     }
-                    setProcess(false);
+                    setLoading(false);
                 })
                 .catch(err => {
                     setStatus({ isError: true, errorMsg: 'Something went wrong!' });
@@ -145,7 +145,7 @@ const AuthForm = ({ isSignup }) => {
                             <button type="submit" className="transition duration-200 border border-black rounded w-full p-1.5 hover:text-white hover:bg-gray-800">
                                 <span className="inline-block mr-2">
                                     {
-                                        process ?
+                                        loading ?
                                             'Processing...' :
                                             isSignup ? 'Sign Up' : 'Login'
                                     }

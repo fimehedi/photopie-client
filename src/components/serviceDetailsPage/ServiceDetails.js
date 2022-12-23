@@ -6,7 +6,7 @@ const ServiceDetails = () => {
     const { id } = useParams();
     const [service, setService] = useState({});
     useEffect(() => {
-        fetch('https://photo-pie.herokuapp.com/service/' + id)
+        fetch(process.env.REACT_APP_API_ROOT + 'service/' + id)
             .then(res => res.json())
             .then(data => {
                 setService(data);

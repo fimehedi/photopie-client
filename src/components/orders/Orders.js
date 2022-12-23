@@ -9,7 +9,7 @@ const Orders = () => {
     const [bookings, setBookings] = useState([]);
 
     useEffect(() => {
-        fetch('https://photo-pie.herokuapp.com/bookings?email=' + loggedInUser.email)
+        fetch(process.env.REACT_APP_API_ROOT + 'bookings?email=' + loggedInUser.email)
             .then(res => res.json())
             .then(data => {
                 setBookings(data);
