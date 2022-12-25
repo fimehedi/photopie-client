@@ -1,14 +1,12 @@
 import { createContext, useEffect, useState } from 'react';
 import './App.css';
 import { checkAuthenticate } from './components/authentication/AuthManager';
-import AddRouter from './routers/AddRouter';
+import AppRouter from './routers/AppRouter';
 
 export const userContext = createContext();
 export const adminContext = createContext();
 
 function App() {
-	console.log(process.env.REACT_APP_API_ROOT);
-
 	const [loggedInUser, setLoggedInUser] = useState({});
 	const [isAdmin, setIsAdmin] = useState(null);
 	const [loading, setLoading] = useState(!loggedInUser.isAuthenticated);
@@ -20,15 +18,16 @@ function App() {
 	}, [loggedInUser.isAuthenticated]);
 
 	useEffect(() => {
-		fetch(
-			process.env.REACT_APP_API_ROOT +
-				'check-admin/?email=' +
-				loggedInUser.email
-		)
-			.then((res) => res.json())
-			.then((data) => {
-				setIsAdmin(data.isAdmin);
-			});
+		loggedInUser.email &&
+			fetch(
+				process.env.REACT_APP_API_ROOT +
+					'check-admin/?email=' +
+					loggedInUser.email
+			)
+				.then((res) => res.json())
+				.then((data) => {
+					setIsAdmin(data.isAdmin);
+				});
 	}, [loggedInUser.email]);
 
 	if (loading) {
@@ -38,7 +37,7 @@ function App() {
 	return (
 		<adminContext.Provider value={{ isAdmin }}>
 			<userContext.Provider value={{ loggedInUser, setLoggedInUser }}>
-				<AddRouter />
+				<AppRouter />
 			</userContext.Provider>
 		</adminContext.Provider>
 	);

@@ -1,10 +1,10 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { Link, useHistory, useParams } from 'react-router-dom';
+import { Link, useHistory, useNavigate, useParams } from 'react-router-dom';
 import { userContext } from '../../App';
 
 const Checkout = () => {
 	const { loggedInUser } = useContext(userContext);
-	const history = useHistory();
+	const navigate = useNavigate();
 
 	const { id } = useParams();
 	const [service, setService] = useState({});
@@ -60,7 +60,7 @@ const Checkout = () => {
 				.then((res) => res.json())
 				.then((data) => {
 					if (data.isAdded) {
-						history.push('/orders');
+						navigate('/orders');
 					} else {
 						alert('Something went wrong!');
 					}

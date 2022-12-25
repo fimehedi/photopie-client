@@ -1,15 +1,15 @@
 import React, { useContext, useState } from 'react';
-import { Link, useHistory, useLocation } from 'react-router-dom';
-import { BsArrowRight, BsArrowLeft } from 'react-icons/bs';
-import { createUserWithEmailPass, signInWithEmailPass } from './AuthManager';
+import { BsArrowLeft, BsArrowRight } from 'react-icons/bs';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { userContext } from '../../App';
+import { createUserWithEmailPass, signInWithEmailPass } from './AuthManager';
 
 const AuthForm = ({ isSignup }) => {
     const { setLoggedInUser } = useContext(userContext);
     const [userInput, setUserInput] = useState({});
     const [status, setStatus] = useState({});
     const [loading, setLoading] = useState(false);
-    const history = useHistory();
+    const navigate = useNavigate();
     const location = useLocation();
     const { from } = location.state || { from: { pathname: '/' } };
 
@@ -75,7 +75,7 @@ const AuthForm = ({ isSignup }) => {
                         setStatus({ isSuccess: true, successMsg: 'User Created Successfully!' });
                         setUserInput({});
                         e.target.reset();
-                        history.push('/login');
+                        navigate('/login');
 
                     }
                     setLoading(false);
@@ -95,7 +95,7 @@ const AuthForm = ({ isSignup }) => {
                     }
                     else if (res.name) {
                         setLoggedInUser(res);
-                        history.replace(from);
+                        navigate(from);
                         e.target.reset();
                     }
                     setLoading(false);
