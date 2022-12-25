@@ -1,11 +1,12 @@
 import React, { useContext } from 'react';
-import { Navigate } from 'react-router-dom';
+import { Navigate, useLocation } from 'react-router-dom';
 import { adminContext, userContext } from '../App';
 import NotFoundPage from '../pages/client/NotFoundPage';
 
 const RequireAuth = ({ children, redirectTo, onlyForAdmin }) => {
 	const { loggedInUser } = useContext(userContext);
 	const { isAdmin } = useContext(adminContext);
+	const location = useLocation();
 
 	if (loggedInUser.isAuthenticated) {
 		if (onlyForAdmin && isAdmin) {
@@ -17,7 +18,7 @@ const RequireAuth = ({ children, redirectTo, onlyForAdmin }) => {
 			return children;
 		}
 	} else {
-		return <Navigate to={redirectTo} />;
+		return <Navigate to={redirectTo} replace state={{ from: location }} />;
 	}
 };
 

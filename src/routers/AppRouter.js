@@ -54,7 +54,7 @@ const AppRouter = () => {
 				<Route
 					path="/dashboard/"
 					element={
-						<RequireAuth redirectTo="/" onlyForAdmin={true}>
+						<RequireAuth redirectTo="/login" onlyForAdmin={true}>
 							<DashboardLayout />
 						</RequireAuth>
 					}
