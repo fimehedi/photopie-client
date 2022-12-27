@@ -4,7 +4,7 @@ import Service from './Service';
 
 const Services = ({ seeMore }) => {
 
-    const [loading, setLoading] = useState(false);
+    const [loading, setLoading] = useState(true);
     const [services, setServices] = useState([]);
     useEffect(() => {
         fetch(process.env.REACT_APP_API_ROOT + 'services')

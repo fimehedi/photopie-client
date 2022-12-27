@@ -35,7 +35,7 @@ function App() {
 	}
 
 	return (
-		<adminContext.Provider value={{ isAdmin }}>
+		<adminContext.Provider value={{ isAdmin, setIsAdmin }}>
 			<userContext.Provider value={{ loggedInUser, setLoggedInUser }}>
 				<AppRouter />
 			</userContext.Provider>

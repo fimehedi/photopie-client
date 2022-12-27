@@ -54,10 +54,11 @@ export const checkAuthenticate = (setLoggedInUser, setPending) => {
 };
 
 
-export const logoutUser = (setLoggedInUser) => {
+export const logoutUser = (setLoggedInUser, setIsAdmin) => {
     firebase.auth().signOut()
         .then(() => {
             setLoggedInUser({});
+            setIsAdmin(null)
         })
         .catch(err => {
             alert(err.message);

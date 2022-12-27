@@ -1,10 +1,11 @@
 import React, { useContext } from 'react';
-import { userContext } from '../../App';
+import { adminContext, userContext } from '../../App';
 import { logoutUser } from '../authentication/AuthManager';
 
 const DashHeader = () => {
 
     const { loggedInUser, setLoggedInUser } = useContext(userContext);
+    const {setIsAdmin} = useContext(adminContext)
 
     return (
         <header className="flex justify-between items-center p-6 pt-0 lg:pt-6 sticky top-0 shadow-lg">
@@ -20,7 +21,7 @@ const DashHeader = () => {
 
                     <div className="flex items-center gap-3 mt-4 lg:mt-0">
                         <h2 className="text-gray-700 dark:text-gray-300 text-sm">{loggedInUser.name}</h2>
-                        <button onClick={() => logoutUser(setLoggedInUser)} className="inline-block text-sm px-4 py-2 leading-none border rounded text-black border-black">Logout</button>
+                        <button onClick={() => logoutUser(setLoggedInUser, setIsAdmin)} className="inline-block text-sm px-4 py-2 leading-none border rounded text-black border-black">Logout</button>
                     </div>
 
                 </div>

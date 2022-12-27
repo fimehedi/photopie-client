@@ -7,7 +7,7 @@ import { logoutUser } from '../authentication/AuthManager';
 const Header = () => {
 
     const { loggedInUser, setLoggedInUser } = useContext(userContext);
-    const { isAdmin } = useContext(adminContext);
+    const { isAdmin, setIsAdmin } = useContext(adminContext);
     const [toggleMenu, setToggleMenu] = useState(false);
 
     return (
@@ -42,7 +42,7 @@ const Header = () => {
                     <div>
                         {
                             loggedInUser.isAuthenticated ?
-                                <button onClick={() => logoutUser(setLoggedInUser)} className="transition duration-200 inline-block text-sm px-4 py-2 leading-none border rounded text-black border-black hover:bg-gray-800 hover:text-white mt-4 lg:mt-0">Logout</button>
+                                <button onClick={() => logoutUser(setLoggedInUser, setIsAdmin)} className="transition duration-200 inline-block text-sm px-4 py-2 leading-none border rounded text-black border-black hover:bg-gray-800 hover:text-white mt-4 lg:mt-0">Logout</button>
                                 :
                                 <Link to="/login" className="transition duration-200 inline-block text-sm px-4 py-2 leading-none border rounded text-black border-black hover:bg-gray-800 hover:text-white mt-4 lg:mt-0">Login</Link>
                         }
