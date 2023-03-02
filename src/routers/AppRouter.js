@@ -24,8 +24,14 @@ const AppRouter = () => {
 					<Route path="/" element={<Home />} />
 					<Route path="services/" element={<ServicesPage />} />
 					<Route path="service/:id/" element={<ServiceDetailsPage />} />
-					<Route path="checkout/:id/" element={<CheckoutPage />} />
-					<Route path="checkout/:id/" element={<CheckoutPage />} />
+					<Route
+						path="checkout/:id/"
+						element={
+							<RequireAuth redirectTo="/login">
+								<CheckoutPage />
+							</RequireAuth>
+						}
+					/>
 					<Route
 						path="orders/"
 						element={
